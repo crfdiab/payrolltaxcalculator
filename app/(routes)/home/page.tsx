@@ -1,5 +1,4 @@
 import PayrollCalculator from '../../components/payroll-calculator';
-import FAQ from '../../components/faq';
 
 export default function Home() {
   return (
@@ -12,7 +11,6 @@ export default function Home() {
           placeholder="Enter text about the calculator"
         ></textarea>
       </div>
-      <FAQ />
     </main>
   );
 }
