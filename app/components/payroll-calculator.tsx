@@ -80,8 +80,8 @@ export default function PayrollCalculator() {
       <h1 className="text-3xl font-bold mb-4">Payroll Tax Calculator</h1>
       <p className="mb-4">
         The PayrollTaxCalculator.co.uk Tax Calculator provides accurate
-        estimates of PAYE (Pay As You Earn) income tax and National Insurance
-        (NI) contributions based on your salary in the United Kingdom. Whether
+        estimates of PAYE Pay As You Earn income tax and National Insurance
+        NI contributions based on your salary in the United Kingdom. Whether
         you're paid weekly, monthly, or annually, our tool helps you understand
         your tax deductions and calculate your take-home pay.
       </p>
