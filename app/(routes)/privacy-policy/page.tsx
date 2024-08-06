@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
         </section>
         <section>
           <h2 className="text-xl font-semibold mb-2">4. Your Rights</h2>
-          <p>Explain users' rights regarding their data.</p>
+          <p>Explain users\' rights regarding their data.</p>
         </section>
       </div>
     </div>
