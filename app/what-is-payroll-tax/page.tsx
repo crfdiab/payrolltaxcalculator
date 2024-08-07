@@ -2,8 +2,8 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'What Is Payroll Tax In UK | PayrollTaxCalculator.co.uk',
-  description: 'Learn about payroll tax in the UK, including the PAYE system, components of payroll tax, and deductions from employee pay. Comprehensive guide for employers and employees.',
+  title: 'What Is Payroll Tax In UK, Its Components And Importance?',
+  description: 'Learn about payroll tax in the UK, including its key components and significance. Discover how payroll tax affects your earnings.',
   alternates: {
     canonical: '/what-is-payroll-tax',
   },
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function WhatIsPayrollTax() {
   return (
     <div className="max-w-4xl mx-auto mt-8">
-      <h1 className="text-3xl font-bold mb-4">What Is Payroll Tax In UK</h1>
+      <h1 className="text-3xl font-bold mb-4">What Is Payroll Tax In UK, Its Components And Importance?</h1>
       
       <Image 
         src="/what-is-payroll-tax-in-uk.jpg" 
@@ -48,6 +48,11 @@ export default function WhatIsPayrollTax() {
       <br></br>
       <hr></hr>
       <br></br>
+      <div className="mt-8 mb-8">
+        <a href="/" className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300 inline-block">
+          Go To Our Take-Home Tax Calculator
+        </a>
+      </div>
       <section id="paye-system">
         <u><p className="text-2xl font-bold mb-4">PAYE System</p></u>
         <h2 className="text-2xl font-bold mb-4">What is PAYE?</h2>
@@ -62,7 +67,6 @@ export default function WhatIsPayrollTax() {
         <br></br>
 <p><strong>When must an employer register for PAYE?</strong></p>
 <p>Employers must register for PAYE before they make their first salary payment to an employee. This registration ensures that they can begin deducting and reporting the necessary taxes and contributions from the outset of employment. Failure to register on time can lead to penalties and compliance issues.</p>
-
 <p><strong>Which employees are eligible for PAYE?</strong></p>
 <p>Most employees in the UK are eligible for PAYE, including full-time, part-time, and temporary staff. Employees who earn above a certain threshold, which is determined annually by HMRC, must have Income Tax and NICs deducted through PAYE. Self-employed individuals and independent contractors, however, typically handle their own tax affairs and are not included in the PAYE system.</p>
       </section>
