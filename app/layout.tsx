@@ -1,7 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Readex_Pro } from 'next/font/google';
-import Navigation from './components/navigation';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 const readexPro = Readex_Pro({ subsets: ['latin'] });
@@ -19,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={readexPro.className}>
-        <Navigation />
         <GoogleAnalytics gaId="G-8KLGRTJB8N" />
         {children}
       </body>
