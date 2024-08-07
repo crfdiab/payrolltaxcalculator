@@ -1,6 +1,5 @@
 'use client';
-
-import { useState } from 'react';
+import React, { useState } from 'react';
 import jsPDF from 'jspdf';
 
 interface TaxResult {
@@ -8,45 +7,116 @@ interface TaxResult {
   incomeTax: number;
   nationalInsurance: number;
   takeHome: number;
+  pension: number;
+  studentLoan: number;
+  salaryExchange: number;
 }
+
+const regions = {
+  'England & Wales': {
+    taxBands: [
+      { threshold: 12570, rate: 0 },
+      { threshold: 50270, rate: 0.2 },
+      { threshold: 125140, rate: 0.4 },
+      { threshold: Infinity, rate: 0.45 },
+    ],
+  },
+  'Scotland': {
+    taxBands: [
+      { threshold: 12570, rate: 0 },
+      { threshold: 14732, rate: 0.19 },
+      { threshold: 25688, rate: 0.20 },
+      { threshold: 43662, rate: 0.21 },
+      { threshold: 125140, rate: 0.42 },
+      { threshold: Infinity, rate: 0.47 },
+    ],
+  },
+  'Northern Ireland': {
+    taxBands: [
+      { threshold: 12570, rate: 0 },
+      { threshold: 50270, rate: 0.2 },
+      { threshold: 125140, rate: 0.4 },
+      { threshold: Infinity, rate: 0.45 },
+    ],
+  },
+};
 
 export default function PayrollCalculator() {
   const [salary, setSalary] = useState('');
   const [period, setPeriod] = useState('annual');
+  const [region, setRegion] = useState('England & Wales');
+  const [taxCode, setTaxCode] = useState('1257L');
+  const [pensionContribution, setPensionContribution] = useState('');
+  const [studentLoanPlan, setStudentLoanPlan] = useState('none');
+  const [salaryExchange, setSalaryExchange] = useState('');
   const [showCalculation, setShowCalculation] = useState(false);
   const [result, setResult] = useState<TaxResult | null>(null);
 
   const calculateTax = () => {
-    const annualSalary =
-      period === 'annual'
-        ? Number(salary)
-        : Number(salary) *
-          (period === 'month' ? 12 : period === 'week' ? 52 : 260);
+    const annualSalary = period === 'annual'
+      ? Number(salary)
+      : Number(salary) * (period === 'month' ? 12 : period === 'week' ? 52 : 260);
 
-    const incomeTax = calculateIncomeTax(annualSalary);
-    const nationalInsurance = calculateNationalInsurance(annualSalary);
-    const takeHome = annualSalary - incomeTax - nationalInsurance;
+    const personalAllowance = calculatePersonalAllowance(annualSalary);
+    const pensionDeduction = (Number(pensionContribution) / 100) * annualSalary;
+    const salaryExchangeDeduction = Number(salaryExchange);
+    const taxableIncome = annualSalary - pensionDeduction - salaryExchangeDeduction;
+
+    const incomeTax = calculateIncomeTax(taxableIncome, personalAllowance);
+    const nationalInsurance = calculateNationalInsurance(taxableIncome);
+    const studentLoanRepayment = calculateStudentLoanRepayment(taxableIncome);
+
+    const takeHome = taxableIncome - incomeTax - nationalInsurance - studentLoanRepayment;
 
     setResult({
       gross: annualSalary,
       incomeTax,
       nationalInsurance,
       takeHome,
+      pension: pensionDeduction,
+      studentLoan: studentLoanRepayment,
+      salaryExchange: salaryExchangeDeduction,
     });
 
     setShowCalculation(true);
   };
 
-  const calculateIncomeTax = (annualSalary: number) => {
-    if (annualSalary <= 12570) return 0;
-    if (annualSalary <= 50270) return (annualSalary - 12570) * 0.2;
-    return (50270 - 12570) * 0.2 + (annualSalary - 50270) * 0.4;
+  const calculatePersonalAllowance = (annualSalary: number) => {
+    const baseAllowance = 12570;
+    if (annualSalary <= 100000) return baseAllowance;
+    const reduction = Math.min((annualSalary - 100000) / 2, baseAllowance);
+    return Math.max(baseAllowance - reduction, 0);
   };
 
-  const calculateNationalInsurance = (annualSalary: number) => {
-    if (annualSalary <= 9568) return 0;
-    if (annualSalary <= 50270) return (annualSalary - 9568) * 0.12;
-    return (50270 - 9568) * 0.12 + (annualSalary - 50270) * 0.02;
+  const calculateIncomeTax = (taxableIncome: number, personalAllowance: number) => {
+    let tax = 0;
+    let remainingIncome = taxableIncome - personalAllowance;
+
+    for (const band of regions[region as keyof typeof regions].taxBands) {
+      if (remainingIncome <= 0) break;
+      const taxableAmount = Math.min(remainingIncome, band.threshold - (band.threshold === Infinity ? 0 : regions[region as keyof typeof regions].taxBands[regions[region as keyof typeof regions].taxBands.indexOf(band) - 1]?.threshold || 0));
+      tax += taxableAmount * band.rate;
+      remainingIncome -= taxableAmount;
+    }
+
+    return tax;
+  };
+
+  const calculateNationalInsurance = (taxableIncome: number) => {
+    if (taxableIncome <= 9568) return 0;
+    if (taxableIncome <= 50270) return (taxableIncome - 9568) * 0.12;
+    return (50270 - 9568) * 0.12 + (taxableIncome - 50270) * 0.02;
+  };
+
+  const calculateStudentLoanRepayment = (taxableIncome: number) => {
+    const thresholds = {
+      'plan1': 19895,
+      'plan2': 27295,
+      'plan4': 25000,
+      'postgraduate': 21000,
+    };
+    if (studentLoanPlan === 'none' || taxableIncome <= thresholds[studentLoanPlan as keyof typeof thresholds]) return 0;
+    return (taxableIncome - thresholds[studentLoanPlan as keyof typeof thresholds]) * 0.09;
   };
 
   const formatCurrency = (value: number) => {
@@ -66,50 +136,83 @@ export default function PayrollCalculator() {
     doc.text(`Tax year 2024/2025`, 10, 20);
     doc.text(`Gross salary: ${formatCurrency(result.gross)}`, 10, 30);
     doc.text(`Income Tax: ${formatCurrency(result.incomeTax)}`, 10, 40);
-    doc.text(
-      `National Insurance: ${formatCurrency(result.nationalInsurance)}`,
-      10,
-      50
-    );
-    doc.text(`Take home pay: ${formatCurrency(result.takeHome)}`, 10, 60);
+    doc.text(`National Insurance: ${formatCurrency(result.nationalInsurance)}`, 10, 50);
+    doc.text(`Pension Contribution: ${formatCurrency(result.pension)}`, 10, 60);
+    doc.text(`Student Loan Repayment: ${formatCurrency(result.studentLoan)}`, 10, 70);
+    doc.text(`Salary Exchange: ${formatCurrency(result.salaryExchange)}`, 10, 80);
+    doc.text(`Take home pay: ${formatCurrency(result.takeHome)}`, 10, 90);
     doc.save('tax-calculation.pdf');
   };
 
   return (
     <div className="max-w-4xl mx-auto mt-8">
       <h1 className="text-3xl font-bold mb-4">Payroll Tax Calculator</h1>
-      <p className="mb-4">
-        The PayrollTaxCalculator.co.uk Tax Calculator provides accurate
-        estimates of PAYE Pay As You Earn income tax and National Insurance
-        NI contributions based on your salary in the United Kingdom. Whether
-        you're paid weekly, monthly, or annually, our tool helps you understand
-        your tax deductions and calculate your take-home pay.
-      </p>
-      <div className="flex space-x-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <input
           type="number"
           placeholder="Enter your salary"
           value={salary}
           onChange={(e) => setSalary(e.target.value)}
-          className="border p-2 rounded flex-grow"
+          className="border p-2 rounded"
         />
         <select
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
           className="border p-2 rounded"
         >
-          <option value="annual">per annual</option>
+          <option value="annual">per year</option>
           <option value="month">per month</option>
           <option value="week">per week</option>
           <option value="day">per day</option>
         </select>
-        <button
-          onClick={calculateTax}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        <select
+          value={region}
+          onChange={(e) => setRegion(e.target.value)}
+          className="border p-2 rounded"
         >
-          Calculate
-        </button>
+          <option value="England & Wales">England & Wales</option>
+          <option value="Scotland">Scotland</option>
+          <option value="Northern Ireland">Northern Ireland</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Tax Code (e.g. 1257L)"
+          value={taxCode}
+          onChange={(e) => setTaxCode(e.target.value)}
+          className="border p-2 rounded"
+        />
+        <input
+          type="number"
+          placeholder="Pension Contribution (%)"
+          value={pensionContribution}
+          onChange={(e) => setPensionContribution(e.target.value)}
+          className="border p-2 rounded"
+        />
+        <select
+          value={studentLoanPlan}
+          onChange={(e) => setStudentLoanPlan(e.target.value)}
+          className="border p-2 rounded"
+        >
+          <option value="none">No Student Loan</option>
+          <option value="plan1">Plan 1</option>
+          <option value="plan2">Plan 2</option>
+          <option value="plan4">Plan 4</option>
+          <option value="postgraduate">Postgraduate Loan</option>
+        </select>
+        <input
+          type="number"
+          placeholder="Salary Exchange (£)"
+          value={salaryExchange}
+          onChange={(e) => setSalaryExchange(e.target.value)}
+          className="border p-2 rounded"
+        />
       </div>
+      <button
+        onClick={calculateTax}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Calculate
+      </button>
       {result && (
         <div className="mt-4">
           <h2 className="text-2xl font-bold">Your estimation</h2>
@@ -141,6 +244,24 @@ export default function PayrollCalculator() {
                 <td>{formatCurrency(result.nationalInsurance)}</td>
                 <td>{formatCurrency(result.nationalInsurance / 12)}</td>
                 <td>{formatCurrency(result.nationalInsurance / 52)}</td>
+              </tr>
+              <tr>
+                <td>Pension Contribution</td>
+                <td>{formatCurrency(result.pension)}</td>
+                <td>{formatCurrency(result.pension / 12)}</td>
+                <td>{formatCurrency(result.pension / 52)}</td>
+              </tr>
+              <tr>
+                <td>Student Loan Repayment</td>
+                <td>{formatCurrency(result.studentLoan)}</td>
+                <td>{formatCurrency(result.studentLoan / 12)}</td>
+                <td>{formatCurrency(result.studentLoan / 52)}</td>
+              </tr>
+              <tr>
+                <td>Salary Exchange</td>
+                <td>{formatCurrency(result.salaryExchange)}</td>
+                <td>{formatCurrency(result.salaryExchange / 12)}</td>
+                <td>{formatCurrency(result.salaryExchange / 52)}</td>
               </tr>
               <tr>
                 <td>Take home pay</td>
@@ -332,6 +453,9 @@ export default function PayrollCalculator() {
   <p className="mb-4">
     For detailed information on PAYE and National Insurance, visit the <a href="https://www.gov.uk/income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> and <a href="https://www.gov.uk/national-insurance" target="_blank" rel="noopener noreferrer">National Insurance</a> pages. These resources provide authoritative guidance on tax rates, allowances, and obligations in the UK.
   </p>
+  <div className="mt-8 mb-8">
+
+</div>
   <div className="mt-8">
     <h3 className="text-xl font-bold mb-4">Frequently Asked Questions about Payroll Taxes</h3>
     <h4 className="text-lg font-semibold">What is PAYE income tax?</h4>
