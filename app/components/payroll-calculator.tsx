@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import jsPDF from 'jspdf';
+import Link from 'next/link';
 
 interface TaxResult {
   gross: number;
@@ -454,7 +455,9 @@ export default function PayrollCalculator() {
     For detailed information on PAYE and National Insurance, visit the <a href="https://www.gov.uk/income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> and <a href="https://www.gov.uk/national-insurance" target="_blank" rel="noopener noreferrer">National Insurance</a> pages. These resources provide authoritative guidance on tax rates, allowances, and obligations in the UK.
   </p>
   <div className="mt-8 mb-8">
-
+  <a href="/what-is-payroll-tax/" className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition duration-300 inline-block">
+    Learn What Is Payroll Tax In UK
+  </a>
 </div>
   <div className="mt-8">
     <h3 className="text-xl font-bold mb-4">Frequently Asked Questions about Payroll Taxes</h3>
