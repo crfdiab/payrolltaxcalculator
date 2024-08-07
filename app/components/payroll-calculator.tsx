@@ -242,15 +242,160 @@ export default function PayrollCalculator() {
       
       {/* About the Calculator section */}
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">About the Calculator</h2>
-        <p className="mb-4">
-          The PayrollTaxCalculator.co.uk Tax Calculator provides accurate
-          estimates of PAYE (Pay As You Earn) income tax and National Insurance
-          (NI) contributions based on your salary in the United Kingdom. Whether
-          you're paid weekly, monthly, or annually, our tool helps you
-          understand your tax deductions and calculate your take-home pay.
-        </p>
-      </div>
+  <h2 className="text-2xl font-bold mb-4">Understanding Payroll Tax Calculation in the UK</h2>
+  <p className="mb-4">
+    Payroll taxes in the United Kingdom, including PAYE (Pay As You Earn) income tax and National Insurance (NI) contributions, are essential components deducted from employees' salaries. These deductions fund various public services and benefits, ensuring the smooth functioning of the country's social security system.
+  </p>
+  <p className="mb-4">
+    The <a href="https://payrolltaxcalculator.co.uk" target="_blank" rel="noopener noreferrer">PayrollTaxCalculator.co.uk Tax Calculator</a> is a valuable tool for individuals to estimate their tax liabilities accurately. It calculates PAYE income tax based on progressive tax bands and National Insurance contributions, which vary depending on earnings thresholds. Whether you receive payments weekly, monthly, or annually, this tool simplifies the complex task of payroll tax calculation.
+  </p>
+  <p className="mb-4">
+    PAYE income tax rates range from 20% to 45% of taxable income, with adjustments for personal allowances and deductions. National Insurance contributions consist of Class 1 (Employee and Employer contributions), Class 2, and Class 4 contributions, each serving different purposes such as funding state pensions, healthcare, and other benefits.
+  </p>
+  <p className="mb-4">
+    For detailed information on PAYE and National Insurance, visit the <a href="https://www.gov.uk/income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> and <a href="https://www.gov.uk/national-insurance" target="_blank" rel="noopener noreferrer">National Insurance</a> pages. These resources provide authoritative guidance on tax rates, allowances, and obligations in the UK.
+  </p>
+  <div className="mt-8">
+    <h3 className="text-xl font-bold mb-4">Frequently Asked Questions about Payroll Taxes</h3>
+    <h4 className="text-lg font-semibold">What is PAYE income tax?</h4>
+    <p className="mb-4">
+      PAYE (Pay As You Earn) is the UK's system for deducting income tax from an employee's salary before it's paid. Employers calculate and withhold the correct amount of tax each pay period.
+      Learn more about PAYE on the <a href="https://www.gov.uk/income-tax/how-you-pay-income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">How are National Insurance contributions calculated?</h4>
+    <p className="mb-4">
+      National Insurance contributions are calculated based on earnings. Employees pay Class 1 contributions, while self-employed individuals pay Class 2 and Class 4 contributions.
+      For more details, visit the <a href="https://www.gov.uk/national-insurance" target="_blank" rel="noopener noreferrer">GOV.UK National Insurance</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">What are the current tax bands and rates?</h4>
+    <p className="mb-4">
+      The UK's income tax rates range from 20% to 45%, depending on income. The basic rate is 20%, the higher rate is 40%, and the additional rate is 45%.
+      Check the latest tax bands and rates on the <a href="https://www.gov.uk/income-tax-rates" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax Rates</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">Do I need to pay National Insurance if I'm self-employed?</h4>
+    <p className="mb-4">
+      Yes, self-employed individuals pay Class 2 and Class 4 National Insurance contributions based on their profits.
+      Learn more about self-employed National Insurance on the <a href="https://www.gov.uk/self-employed-national-insurance-rates" target="_blank" rel="noopener noreferrer">GOV.UK National Insurance Rates</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">How do deductions for pensions and benefits affect my take-home pay?</h4>
+    <p className="mb-4">
+      Pension contributions and benefit deductions reduce your taxable income, lowering the amount of PAYE tax and National Insurance you pay.
+      Find out more about how these deductions work on the <a href="https://www.gov.uk/workplace-pensions" target="_blank" rel="noopener noreferrer">GOV.UK Workplace Pensions</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">Can I claim tax relief on work-related expenses?</h4>
+    <p className="mb-4">
+      Yes, you can claim tax relief on allowable work-related expenses, which reduces your taxable income and overall tax bill.
+      Discover what expenses qualify on the <a href="https://www.gov.uk/tax-relief-for-employees" target="_blank" rel="noopener noreferrer">GOV.UK Tax Relief for Employees</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">What is the difference between Class 1 and Class 2 National Insurance contributions?</h4>
+    <p className="mb-4">
+      Class 1 contributions are paid by employees and employers, while Class 2 contributions are paid by self-employed individuals.
+      More details can be found on the <a href="https://www.gov.uk/national-insurance/how-much-you-pay" target="_blank" rel="noopener noreferrer">GOV.UK National Insurance</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">How do changes in income affect my tax obligations?</h4>
+    <p className="mb-4">
+      Changes in income can alter the tax band you fall into, affecting the rate of PAYE tax and National Insurance you pay.
+      Learn how income changes impact taxes on the <a href="https://www.gov.uk/income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">Where can I find my PAYE tax code?</h4>
+    <p className="mb-4">
+      Your PAYE tax code can be found on your payslip, P60, or by contacting HMRC.
+      For more information, visit the <a href="https://www.gov.uk/tax-codes" target="_blank" rel="noopener noreferrer">GOV.UK Tax Codes</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">What happens if I miss the deadline for tax payments?</h4>
+    <p className="mb-4">
+      Missing tax payment deadlines can result in penalties and interest charges.
+      Find out what to do if you miss a payment on the <a href="https://www.gov.uk/understand-self-assessment-bill/payments" target="_blank" rel="noopener noreferrer">GOV.UK Self Assessment</a> page.
+    </p>
+  </div>
+</div>
+<div className="mt-8">
+  <h2 className="text-2xl font-bold mb-4">Understanding Payroll Tax Calculation in the UK</h2>
+  <p className="mb-4">
+    Payroll taxes in the United Kingdom, including PAYE (Pay As You Earn) income tax and National Insurance (NI) contributions, are essential components deducted from employees' salaries. These deductions fund various public services and benefits, ensuring the smooth functioning of the country's social security system.
+  </p>
+  <p className="mb-4">
+    The <a href="https://payrolltaxcalculator.co.uk" target="_blank" rel="noopener noreferrer">PayrollTaxCalculator.co.uk Tax Calculator</a> is a valuable tool for individuals to estimate their tax liabilities accurately. It calculates PAYE income tax based on progressive tax bands and National Insurance contributions, which vary depending on earnings thresholds. Whether you receive payments weekly, monthly, or annually, this tool simplifies the complex task of payroll tax calculation.
+  </p>
+  <p className="mb-4">
+    PAYE income tax rates range from 20% to 45% of taxable income, with adjustments for personal allowances and deductions. National Insurance contributions consist of Class 1 (Employee and Employer contributions), Class 2, and Class 4 contributions, each serving different purposes such as funding state pensions, healthcare, and other benefits.
+  </p>
+  <p className="mb-4">
+    For detailed information on PAYE and National Insurance, visit the <a href="https://www.gov.uk/income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> and <a href="https://www.gov.uk/national-insurance" target="_blank" rel="noopener noreferrer">National Insurance</a> pages. These resources provide authoritative guidance on tax rates, allowances, and obligations in the UK.
+  </p>
+  <div className="mt-8">
+    <h3 className="text-xl font-bold mb-4">Frequently Asked Questions about Payroll Taxes</h3>
+    <h4 className="text-lg font-semibold">What is PAYE income tax?</h4>
+    <p className="mb-4">
+      PAYE (Pay As You Earn) is the UK's system for deducting income tax from an employee's salary before it's paid. Employers calculate and withhold the correct amount of tax each pay period.
+      Learn more about PAYE on the <a href="https://www.gov.uk/income-tax/how-you-pay-income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">How are National Insurance contributions calculated?</h4>
+    <p className="mb-4">
+      National Insurance contributions are calculated based on earnings. Employees pay Class 1 contributions, while self-employed individuals pay Class 2 and Class 4 contributions.
+      For more details, visit the <a href="https://www.gov.uk/national-insurance" target="_blank" rel="noopener noreferrer">GOV.UK National Insurance</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">What are the current tax bands and rates?</h4>
+    <p className="mb-4">
+      The UK's income tax rates range from 20% to 45%, depending on income. The basic rate is 20%, the higher rate is 40%, and the additional rate is 45%.
+      Check the latest tax bands and rates on the <a href="https://www.gov.uk/income-tax-rates" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax Rates</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">Do I need to pay National Insurance if I'm self-employed?</h4>
+    <p className="mb-4">
+      Yes, self-employed individuals pay Class 2 and Class 4 National Insurance contributions based on their profits.
+      Learn more about self-employed National Insurance on the <a href="https://www.gov.uk/self-employed-national-insurance-rates" target="_blank" rel="noopener noreferrer">GOV.UK National Insurance Rates</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">How do deductions for pensions and benefits affect my take-home pay?</h4>
+    <p className="mb-4">
+      Pension contributions and benefit deductions reduce your taxable income, lowering the amount of PAYE tax and National Insurance you pay.
+      Find out more about how these deductions work on the <a href="https://www.gov.uk/workplace-pensions" target="_blank" rel="noopener noreferrer">GOV.UK Workplace Pensions</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">Can I claim tax relief on work-related expenses?</h4>
+    <p className="mb-4">
+      Yes, you can claim tax relief on allowable work-related expenses, which reduces your taxable income and overall tax bill.
+      Discover what expenses qualify on the <a href="https://www.gov.uk/tax-relief-for-employees" target="_blank" rel="noopener noreferrer">GOV.UK Tax Relief for Employees</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">What is the difference between Class 1 and Class 2 National Insurance contributions?</h4>
+    <p className="mb-4">
+      Class 1 contributions are paid by employees and employers, while Class 2 contributions are paid by self-employed individuals.
+      More details can be found on the <a href="https://www.gov.uk/national-insurance/how-much-you-pay" target="_blank" rel="noopener noreferrer">GOV.UK National Insurance</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">How do changes in income affect my tax obligations?</h4>
+    <p className="mb-4">
+      Changes in income can alter the tax band you fall into, affecting the rate of PAYE tax and National Insurance you pay.
+      Learn how income changes impact taxes on the <a href="https://www.gov.uk/income-tax" target="_blank" rel="noopener noreferrer">GOV.UK Income Tax</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">Where can I find my PAYE tax code?</h4>
+    <p className="mb-4">
+      Your PAYE tax code can be found on your payslip, P60, or by contacting HMRC.
+      For more information, visit the <a href="https://www.gov.uk/tax-codes" target="_blank" rel="noopener noreferrer">GOV.UK Tax Codes</a> page.
+    </p>
+    
+    <h4 className="text-lg font-semibold">What happens if I miss the deadline for tax payments?</h4>
+    <p className="mb-4">
+      Missing tax payment deadlines can result in penalties and interest charges.
+      Find out what to do if you miss a payment on the <a href="https://www.gov.uk/understand-self-assessment-bill/payments" target="_blank" rel="noopener noreferrer">GOV.UK Self Assessment</a> page.
+    </p>
+  </div>
+</div>
+
       
       {/* Footer section */}
       <footer className="mt-8 border-t pt-4 text-center text-sm text-gray-500">
