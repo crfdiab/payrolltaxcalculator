@@ -6,8 +6,9 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 const readexPro = Readex_Pro({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Payroll Tax Calculator',
-  description: 'Calculate your UK payroll taxes',
+  title: 'UK Payroll Tax Calculator: Accurate Salary and Tax Estimates',
+  description: 'Use our UK Payroll Tax Calculator for precise estimates of your salary, income tax, National Insurance contributions, and take-home pay.',
+  canonical: 'https://payrolltaxcalculator.co.uk/', // Replace with your actual domain
 };
 
 export default function RootLayout({
@@ -17,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="canonical" href={metadata.canonical} />
+      </head>
       <body className={readexPro.className}>
         <GoogleAnalytics gaId="G-8KLGRTJB8N" />
         {children}
