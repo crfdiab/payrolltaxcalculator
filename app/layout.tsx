@@ -7,8 +7,8 @@ const readexPro = Readex_Pro({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://payrolltaxcalculator.co.uk'),
-  title: 'UK Payroll Tax Calculator: Accurate Salary and Tax Estimates',
-  description: 'Use our UK Payroll Tax Calculator for precise estimates of your salary, income tax, National Insurance contributions, and take-home pay. Fast and easy to use.',
+  title: 'Take Home Pay Calculator | Take-Home Tax Calculator',
+  description: 'Calculate your take-home pay with ease using our Take Home Pay Calculator. Quickly determine your net income after taxes and deductions.',
   alternates: {
     canonical: '/',
   },
